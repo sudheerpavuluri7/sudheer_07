@@ -1,20 +1,54 @@
 package com.basics;
+import java.util.ArrayList;
 public class Main {
-	public static void main(String args[])   {
-		int n = 64;
-		boolean [] primes = new boolean[n+1];
 
-		for(int i=2; i<=Math.sqrt(n); i++) {
-			if(primes[i] == false) {
-				for(int j=i*i; j<=n; j=j+i) {
-					primes[j] = true;
-				}
-			}
-		}
-		for(int i=2; i<=n; i++) {
-			if(primes[i] == false) {
-				System.out.println(i);
-			}
-		}
-	}
+    public static ArrayList<Integer> simpleSieve(int n) {
+        boolean[] primes = new boolean[n + 1];
+
+        int sqrt = (int) Math.sqrt(n);
+        for (int i = 2; i <= sqrt; i++) {
+            if (primes[i] == false) {
+                for (int j = i * i; j <= n; j = j + i) {
+                    primes[j] = true;
+                }
+            }
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 2; i <= n; i++) {
+            if (primes[i] == false) {
+                list.add(i);
+            }
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        int l = 100;
+        int r = 150;
+        int sqrt = (int) Math.sqrt(r);
+        ArrayList<Integer> simpleSievePrimes = simpleSieve(sqrt);
+
+        boolean[] segmentPrimes = new boolean[r - l + 1];
+        for (int p : simpleSievePrimes) {
+            int start = Math.max(p * p, ((l + p - 1) / p) * p);
+            for (int i = start; i <= r; i = i + p) {
+                segmentPrimes[i - l] = true;
+            }
+        }
+        // 0 and 1 are not prime
+        if (l == 0) {
+            segmentPrimes[0] = true;
+            if (r >= 1) {
+                segmentPrimes[1] = true;
+            }
+        } else if (l == 1) {
+            segmentPrimes[0] = true;
+        }
+        System.out.println("Prime numbers between " + l + " and " + r + " are:");
+        for (int i = 0; i < segmentPrimes.length; i++) {
+            if (segmentPrimes[i] == false) {
+                System.out.print((l + i) + " ");
+            }
+        }
+    }
 }
