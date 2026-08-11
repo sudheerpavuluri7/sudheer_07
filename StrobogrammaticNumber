@@ -1,0 +1,41 @@
+package com.basics;
+
+public class Main {
+	
+public static boolean isStrobogrammatic(String s) {
+		int left = 0;
+		int right = s.length()-1;
+		while(left <= right) {
+			char leftDigit = s.charAt(left);
+			char rightDigit = s.charAt(right);
+			if(
+					(leftDigit == '0'  && rightDigit == '0') ||
+					(leftDigit == '1'  && rightDigit == '1') ||
+					(leftDigit == '6'  && rightDigit == '9') ||
+					(leftDigit == '8'  && rightDigit == '8') ||
+					(leftDigit == '9'  && rightDigit == '6')
+			) {
+				left++;
+				right--;
+				
+			}else {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static void main(String[] args) {
+		String s = "916";
+		System.out.println(isStrobogrammatic(s) ? "Strobogrammatic Number" : "Not Strobogrammatic Number" );
+		
+		
+	}
+}
+
+
+
+
+
+
+
