@@ -1,0 +1,68 @@
+package com.basics;
+
+import java.util.Scanner;
+
+public class Main {
+	
+	public static boolean isPalindrome(String s) {
+		int left = 0;
+		int right = s.length()-1;
+		while(left < right) {
+			
+			char leftChar = s.charAt(left);
+			char rightChar = s.charAt(right);
+			if(leftChar != rightChar) {
+				return false;
+			}
+			left++;
+			right--;
+		}
+		return true;
+	}
+	
+	public static int longestPalindromeLength(String binary) {
+		int max = -1;
+		for(int i=0; i<binary.length(); i++) {
+			for(int j=i; j<binary.length(); j++) {
+				
+				String substring = binary.substring(i,j+1);
+				if(isPalindrome(substring)) {
+					if(substring.length() > max) {
+						max = substring.length();
+					}
+				}
+			}
+		}
+		return max;
+	}
+	
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		String binary = Integer.toBinaryString(n);
+		int res = longestPalindromeLength(binary);
+		System.out.println(res);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
