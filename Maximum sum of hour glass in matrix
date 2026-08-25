@@ -1,0 +1,74 @@
+package com.basics;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Given 2D array
+        int[][] ar = {
+            {1, 2, 3, 4, 5},
+            {6, 7, 8, 9, 10},
+            {6, 7, 8, 9, 10},
+            {1, 2, 3, 4, 5}
+        };
+
+        // Number of rows
+        int row = ar.length;
+
+        // Number of columns
+        int col = ar[0].length;
+
+        // An hourglass requires at least 3 rows and 3 columns
+        if (row < 3 || col < 3) {
+            System.out.println("Hourglass cannot be formed");
+            return;
+        }
+
+        // Start with the smallest possible integer
+        int max = Integer.MIN_VALUE;
+
+        /*
+         * Hourglass pattern:
+         *
+         * a  b  c
+         *    d
+         * e  f  g
+         *
+         * We need 3 rows and 3 columns to form one hourglass.
+         */
+
+        // i represents the starting row
+        for (int i = 0; i <= row - 3; i++) {
+
+            // j represents the starting column
+            for (int j = 0; j <= col - 3; j++) {
+
+                /*
+                 * Calculate the sum of the current hourglass.
+                 *
+                 * First row:  3 elements
+                 * Middle row: 1 element
+                 * Last row:   3 elements
+                 */
+                int sum = ar[i][j]           // First row - first element
+                        + ar[i][j + 1]       // First row - middle element
+                        + ar[i][j + 2]       // First row - last element
+
+                        + ar[i + 1][j + 1]   // Middle row - middle element
+
+                        + ar[i + 2][j]       // Last row - first element
+                        + ar[i + 2][j + 1]   // Last row - middle element
+                        + ar[i + 2][j + 2];  // Last row - last element
+
+                // If current hourglass sum is greater,
+                // update max
+                if (sum > max) {
+                    max = sum;
+                }
+            }
+        }
+
+        // Print the maximum hourglass sum
+        System.out.println("Maximum Hourglass Sum: " + max);
+    }
+}
