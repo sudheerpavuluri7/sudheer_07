@@ -1,64 +1,123 @@
----------HCF----------
+------HCF------
 
--->Brute force approach:
+1)Brute Force Approach:
 package com.basics;
 
 public class Main {
-	public static void main(String[] args) {
-		int a = 10;
-		int b = 15;
-		int gcf = -1;
-		for(int i=Math.min(a, b); i>=1; i--) {
-			if(a%i == 0 && b%i==0) {
-				gcf = i;
-				break;
-			}
-		}
-		System.out.println(gcf);
-		
-	}
+    public static void main(String[] args) {
+
+        int a = 10;
+        int b = 15;
+
+        // Initially, assume HCF is -1
+        int gcf = -1;
+
+        /*
+         * Start checking from the smaller number
+         * because HCF cannot be greater than
+         * the smaller of the two numbers.
+         */
+        for (int i = Math.min(a, b); i >= 1; i--) {
+
+            /*
+             * If i divides both a and b,
+             * then i is a common factor.
+             */
+            if (a % i == 0 && b % i == 0) {
+
+                // Since we are checking from largest to smallest,
+                // the first common factor is the HCF.
+                gcf = i;
+                break;
+            }
+        }
+
+        // Print the HCF
+        System.out.println(gcf);
+    }
 }
-Time Complexity : O(min(a, b))
+-->Brute Force Time Complexity : O(min(a,b))
 
+--------------------------------------------------------------------------------------------------------------------------------
+2)Using Subtraction:
 
---> using subtraction
 package com.basics;
 
 public class Main {
-	public static void main(String[] args) {
-		int a = 10;
-		int b = 15;
-		
-		while( a!=b ) {
-			if(a > b) {
-				a = a-b;
-			}else {
-				b = b-a;
-			}
-		}
-		System.out.println(a);
-	}
+    public static void main(String[] args) {
+
+        int a = 10;
+        int b = 15;
+
+        /*
+         * Keep subtracting the smaller number
+         * from the larger number.
+         *
+         * Eventually, both numbers become equal.
+         * That common value is the HCF.
+         */
+        while (a != b) {
+
+            // If a is greater, subtract b from a
+            if (a > b) {
+                a = a - b;
+            }
+
+            // Otherwise, subtract a from b
+            else {
+                b = b - a;
+            }
+        }
+
+        /*
+         * When a == b,
+         * that value is the HCF.
+         */
+        System.out.println(a);
+    }
 }
+-->Subtraction  Time Complexity :   O(max(a,b))
+--------------------------------------------------------------------------------------------------------------------------------
 
-Time Complexity : O(max(a, b))
 
---> using modulus
+3)Using Modulus(Euclids Algorithm)
 
 package com.basics;
 
 public class Main {
-	public static void main(String[] args) {
-		int a = 10;
-		int b = 15;
-		
-		while(b!=0) {
-			int temp = a%b;
-			a = b;
-			b = temp;
-		}
-		System.out.println(a);
-		
-	}
-}
+    public static void main(String[] args) {
 
-Time Complexity : O(log(min(a, b)))
+        int a = 10;
+        int b = 15;
+
+        /*
+         * Euclidean Algorithm:
+         *
+         * HCF(a, b) = HCF(b, a % b  --> replace a = b  and b = a%b
+         *
+         * Continue until b becomes 0.
+         * At that point, a contains the HCF.
+         */
+        while (b != 0) {
+
+            // Find the remainder
+            int temp = a % b;
+
+            // Move b into a
+            a = b;
+
+            // Move remainder into b
+            b = temp;
+        }
+
+        /*
+         * When b becomes 0,
+         * a contains the HCF.
+         */
+        System.out.println(a);
+    }
+}
+Modulus Time Complexity : O(log(min(a,b)))
+--------------------------------------------------------------------------------------------------------------------------------
+
+
