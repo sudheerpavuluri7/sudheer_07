@@ -1,0 +1,64 @@
+---------HCF----------
+
+-->Brute force approach:
+package com.basics;
+
+public class Main {
+	public static void main(String[] args) {
+		int a = 10;
+		int b = 15;
+		int gcf = -1;
+		for(int i=Math.min(a, b); i>=1; i--) {
+			if(a%i == 0 && b%i==0) {
+				gcf = i;
+				break;
+			}
+		}
+		System.out.println(gcf);
+		
+	}
+}
+Time Complexity : O(min(a, b))
+
+
+--> using subtraction
+package com.basics;
+
+public class Main {
+	public static void main(String[] args) {
+		int a = 10;
+		int b = 15;
+		
+		while( a!=b ) {
+			if(a > b) {
+				a = a-b;
+			}else {
+				b = b-a;
+			}
+		}
+		System.out.println(a);
+	}
+}
+
+Time Complexity : O(max(a, b))
+
+--> using modulus
+
+package com.basics;
+
+public class Main {
+	public static void main(String[] args) {
+		int a = 10;
+		int b = 15;
+		
+		while(b!=0) {
+			int temp = a%b;
+			a = b;
+			b = temp;
+		}
+		System.out.println(a);
+		
+	}
+}
+
+Time Complexity : O(log(min(a, b)))
