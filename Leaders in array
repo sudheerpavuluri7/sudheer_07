@@ -1,0 +1,67 @@
+--> Leaders in Array
+-->An element is a leader if it is greater than or equal to all elements on its right.
+
+Brute Force Approach:
+
+package com.basics;
+import java.util.LinkedList;
+public class Main {
+	public static boolean isLeader(int element, int ind, int [] arr){
+        for(int i=ind; i<arr.length; i++){
+            if(element < arr[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String args []) {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        int [] ar = {36,36, 15, 4, 30, 5, 2};
+        for(int i=0; i<ar.length; i++){
+            if(isLeader(ar[i], i+1, ar)){
+                list.addFirst(ar[i]);
+            }
+        }
+        for(int x : list) {
+        	System.out.print(x + " ");
+        }
+    }
+}
+
+Time Complexity : O(n²)
+-----------------------------------------------------------------------------------------------
+
+
+Optimal Solution:
+
+package com.basics;
+import java.util.LinkedList;
+public class Main {
+	public static boolean isLeader(int element, int ind, int [] arr){
+        for(int i=ind; i<arr.length; i++){
+            if(element < arr[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String args []) {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        int [] ar = {36,36, 15, 4, 30, 5, 2};
+        int max = Integer.MIN_VALUE;
+        for(int i=ar.length-1; i>=0; i--) {
+        	if(ar[i] >= max) {
+        		list.addFirst(ar[i]);
+        		max = ar[i];
+        	}
+        }
+        for(int x : list) {
+        	System.out.print(x + " ");
+        }
+    }
+}
+
+Time Complexity : O(n)
+
