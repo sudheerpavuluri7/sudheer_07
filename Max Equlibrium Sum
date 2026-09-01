@@ -1,0 +1,126 @@
+--> Max Equlibrium Sum
+package com.basics;
+
+class Main {
+
+    public static void main(String[] args) {
+
+        int[] ar = {2, 2, 6, 3, 1, -1, -1, 7, 8, 0};
+
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < ar.length; i++) {
+
+            int leftSum = 0;
+            int rightSum = 0;
+
+            // Calculate left sum
+            for (int j = 0; j < i; j++) {
+                leftSum += ar[j];
+            }
+
+            // Calculate right sum
+            for (int j = i + 1; j < ar.length; j++) {
+                rightSum += ar[j];
+            }
+
+            // Check equilibrium
+            if (leftSum == rightSum) {
+
+                if (leftSum > max) {
+                    max = leftSum;
+                }
+            }
+        }
+
+        if (max == Integer.MIN_VALUE) {
+            System.out.println("No equilibrium index");
+        } else {
+            System.out.println("Maximum equilibrium sum: " + max);
+        }
+    }
+}
+
+Time Complexity : O(n²)
+Space Complexity : O(1)
+
+
+-> Using PrefixSum array and Suffix sum arra
+package com.basics;
+class Main {
+
+    public static void main(String[] args) {
+    	int [] ar = {2, 2, 6, 3, 1, -1, -1, 7, 8, 0};
+    	
+    	int [] prefix = new int[ar.length];
+    	int sum  = 0;
+    	for(int i=0; i<ar.length; i++) {
+    		sum += ar[i];
+    		prefix[i] = sum;	
+    	}
+    	sum = 0;
+    	int [] suffix = new int[ar.length];
+    	for(int i=ar.length-1; i>=0; i--) {
+    		sum += ar[i];
+    		suffix[i] = sum;
+    	}
+    	int max = Integer.MIN_VALUE;
+    	for(int i=0; i<ar.length; i++) {
+    		int leftSum = prefix[i] - ar[i];
+    		int rightSum = suffix[i] - ar[i];
+    		if(leftSum == rightSum) {
+    			if(leftSum > max) {
+    				max = leftSum;
+    			}
+    		}
+    	}
+      if (max == Integer.MIN_VALUE) {
+          System.out.println("No equilibrium index");
+      } else {
+          System.out.println("Maximum equilibrium sum: " + max);
+      }
+    }
+}
+
+Time Complexity : O(n)
+Space Complexity : O(n)
+
+
+
+--> Most Optimal:
+
+package com.basics;
+
+class Main {
+
+    public static void main(String[] args) {
+
+        int[] ar = {2, 2, 6, 3, 1, -1, -1, 7, 8, 0};
+
+        int totalSum = 0;
+
+        for (int i = 0; i < ar.length; i++) {
+            totalSum += ar[i];
+        }
+
+        int leftSum = 0;
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < ar.length; i++) {
+
+            int rightSum = totalSum - leftSum - ar[i];
+
+            if (leftSum == rightSum) {
+                max = Math.max(max, leftSum);
+            }
+
+            leftSum += ar[i];
+        }
+
+        if (max == Integer.MIN_VALUE) {
+            System.out.println("No equilibrium index");
+        } else {
+            System.out.println(max);
+        }
+    }
+}
