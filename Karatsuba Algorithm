@@ -1,0 +1,43 @@
+-->Karatsuba Algorithm:
+
+package com.basics;
+class Main {
+    static long karatsuba(long x, long y) {
+        if (x < 10 || y < 10) {
+            return x * y;
+        }
+        int n = Math.max(countDigits(x), countDigits(y)); 
+        int m = n / 2;
+        long tenpowM = (long) Math.pow(10, m);   
+        long a = x / tenpowM;  
+        long b = x % tenpowM;
+        long c = y / tenpowM;
+        long d = y % tenpowM;
+        long ac = karatsuba(a, c);
+        long bd = karatsuba(b, d);
+        long midExp = karatsuba(a + b, c + d)- ac - bd;
+        long res = ac * tenpowM * tenpowM + midExp * tenpowM + bd;
+        return res;
+    }
+    static int countDigits(long n) {
+        if (n == 0)return 1;
+        int count = 0;
+        while (n > 0) {
+            count++;
+            n /= 10;
+        }
+        return count;
+    }
+    public static void main(String[] args) {
+        long x = 12;
+        long y = 34;
+        long result = karatsuba(x, y);
+        System.out.println(result);
+    }
+}
+
+
+
+
+
+
