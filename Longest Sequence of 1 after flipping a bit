@@ -1,0 +1,95 @@
+Longest Sequence of 1 after flipping a bit
+
+-->Brute Force Approach
+package com.basics;
+
+class Main {
+
+    public static void main(String[] args) {
+
+        int[] ar = {1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0};
+
+        int max = 0;
+
+        for (int i = 0; i < ar.length; i++) {
+
+            int zeroCount = 0;
+
+            for (int j = i; j < ar.length; j++) {
+
+                if (ar[j] == 0) {
+                    zeroCount++;
+                }
+
+                if (zeroCount > 1) {
+                    break;
+                }
+
+                int size = j - i + 1;
+
+                if (size > max) {
+                    max = size;
+                }
+            }
+        }
+
+        System.out.println("Longest sequence = " + max);
+    }
+}
+
+Time Complexity: O(n²)
+Space Complexity: O(1)
+
+-->Optimal:
+
+package com.basics;
+
+class Main {
+
+    public static void main(String[] args) {
+
+        int[] ar = {1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0};
+
+        int left = 0;
+        int zeroCount = 0;
+        int max = 0;
+
+        for (int right = 0; right < ar.length; right++) {
+
+            if (ar[right] == 0) {
+                zeroCount++;
+            }
+
+            while (zeroCount > 1) {
+
+                if (ar[left] == 0) {
+                    zeroCount--;
+                }
+
+                left++;
+            }
+
+            int size = right - left + 1;
+
+            if (size > max) {
+                max = size;
+            }
+        }
+
+        System.out.println(max);
+    }
+}
+
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+
+
+
+
+
+
+
+
+
