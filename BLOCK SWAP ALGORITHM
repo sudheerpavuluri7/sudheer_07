@@ -1,0 +1,205 @@
+-->Left Rotation
+
+import java.util.Scanner;
+
+public class Main {
+
+    // Reverse elements from left to right
+    public static void reverse(int[] arr, int left, int right) {
+
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Read array size
+        int n = sc.nextInt();
+
+        // Create array
+        int[] arr = new int[n];
+
+        // Read array elements
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Read number of rotations
+        int k = sc.nextInt();
+
+        // Handle k greater than array size
+        k = k % n;
+
+        // Step 1: Reverse first k elements
+        reverse(arr, 0, k - 1);
+
+        // Step 2: Reverse remaining elements
+        reverse(arr, k, n - 1);
+
+        // Step 3: Reverse entire array
+        reverse(arr, 0, n - 1);
+
+        // Print the rotated array
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+
+--> Right Rotation
+
+import java.util.Scanner;
+
+public class Main {
+
+    // Reverse elements from left to right
+    public static void reverse(int[] arr, int left, int right) {
+
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Read array size
+        int n = sc.nextInt();
+
+        // Create array
+        int[] arr = new int[n];
+
+        // Read array elements
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Read number of rotations
+        int k = sc.nextInt();
+
+        // Handle k greater than array size
+        k = k % n;
+
+        // Step 1: Reverse entire array
+        reverse(arr, 0, n - 1);
+
+        // Step 2: Reverse first k elements
+        reverse(arr, 0, k - 1);
+
+        // Step 3: Reverse remaining elements
+        reverse(arr, k, n - 1);
+
+        // Print the rotated array
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+
+-->Given an array and two indexes left and right, reverse only the elements between those indexes.
+
+import java.util.Scanner;
+
+public class Main {
+
+    static void reverse(int[] arr, int left, int right) {
+
+        while (left < right) {
+
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int left = sc.nextInt();
+        int right = sc.nextInt();
+
+        reverse(arr, left, right);
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+-->Given an array of n elements and an integer k, reverse the first k elements and the last k elements of the array
+
+import java.util.Scanner;
+
+public class Main {
+
+    static void reverse(int[] arr, int left, int right) {
+
+        while (left < right) {
+
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int k = sc.nextInt();
+
+        // Reverse first k elements
+        reverse(arr, 0, k - 1);
+
+        // Reverse last k elements
+        reverse(arr, n - k, n - 1);
+
+        // Print array
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+
+
