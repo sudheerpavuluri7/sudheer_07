@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        // Get left nibble
+        int leftNibble = num & 0xF0;
+
+        // Get right nibble
+        int rightNibble = num & 0x0F;
+
+        // Swap the two nibbles
+        int res = (leftNibble >> 4) | (rightNibble << 4);
+
+        System.out.println("After swapping nibbles: " + res);
+
+        sc.close();
+    }
+}
