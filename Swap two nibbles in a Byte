@@ -23,3 +23,89 @@ public class Main {
         sc.close();
     }
 }
+
+
+
+
+
+
+
+
+--> Swap Two Nibbles in a Byte
+
+N = 1
+
+1  --> 0000 0001   
+After swapping:
+16 --> 0001 0000
+
+
+Steps to Swap Two Nibbles:
+
+num = 53
+
+1) &num with hexadecimal F0 to get left Nibble
+2) &num with hexadecimal 0F to get right Nibble
+3) leftNibble  >> 4
+4) rightNibble << 4
+5) Combine nibbles using | operator
+
+        53
+
+     0011 0101
+
+
+Step 1 : &num with F0 to get left Nibble
+
+
+		  0011 0101
+       &1111 0000
+		 -----------
+		  0011 0000
+
+Left Nibble : 0011 0000
+
+
+Step 2 : &num with 0F to get Right Nibble
+
+
+		  0011 0101
+		 &0000 1111
+		------------
+		  0000 0101
+
+Right Nibble : 0000 0101
+
+
+Step 3 : leftNibble >> 4
+
+
+			0011 0000 >> 4
+
+			0000 0011
+
+
+Step 4 : rightNibble << 4
+
+
+			0000 0101 << 4
+
+			0101 0000
+
+
+Step 5 : leftNibble | rightNibble
+
+
+			0000 0011
+			0101 0000
+			---------
+			0101 0011
+
+
+Given Input :  53
+
+			53 --> 0011 0101
+
+			After swapping two Nibbles
+
+			83 --> 0101 0011
