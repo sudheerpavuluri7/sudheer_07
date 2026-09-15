@@ -1,0 +1,136 @@
+Ex: {2,0,-2,-5,4}
+
+Ex: {2,0,5,-2,-1,-10,2,3}
+
+
+—>Brute Force Approach:
+
+package com.basics;
+
+class Main {
+    public static void main(String[] args) {
+    	
+    	int [] ar = {2,-2,3,4};
+    	int max = Integer.MIN_VALUE;
+    	for(int i=0; i<ar.length; i++) {
+    		for(int j=i; j<ar.length; j++) {
+    			int prod = 1;
+    			for(int k=i; k<=j; k++) {
+    				prod = prod * ar[k];
+    			}
+    			if(prod > max) {
+    				max = prod;
+    			}
+    		}
+    	}
+    	System.out.println(max);
+    	
+    }
+}
+
+
+—>Brute Force Approach:
+
+package com.basics;
+
+class Main {
+    public static void main(String[] args) {
+    	
+    	int [] ar = {2,-2,3,4};
+    	int max = Integer.MIN_VALUE;
+    	for(int i=0; i<ar.length; i++) {
+    		int prod = 1;
+    		for(int j=i; j<ar.length; j++) {
+    			prod = prod * ar[j];
+    			if(prod > max) {
+    				max = prod;
+    			}
+    		}
+    	}
+    	System.out.println(max);
+    	
+    }
+}
+
+
+—>Optimal Approach:
+
+package com.basics;
+
+class Main {
+    public static void main(String[] args) {
+    	
+    	int [] ar = {2,0,5,-2,-1,-10,2,3};
+    	int max = Integer.MIN_VALUE;
+    	int leftProd = 1;
+    	for(int i=0; i<ar.length; i++) {
+    		leftProd = leftProd * ar[i];
+    		if(leftProd > max) {
+    			max = leftProd;
+    		}	
+    		if(leftProd == 0) {
+    			leftProd = 1;
+    		}
+    	}
+    	int rightProd = 1;
+    	for(int i=ar.length-1; i>=0; i--) {
+    		rightProd = rightProd * ar[i];
+    		if(rightProd > max) {
+    			max = rightProd;
+    		}
+    		if(rightProd == 0) {
+    			rightProd = 1;
+    		}
+    	}
+    	System.out.println(max);
+    	
+    	
+    }
+}
+
+—>Optimal 
+
+package com.basics;
+
+class Main {
+    public static void main(String[] args) {
+
+        int[] ar = {2, 0, 5, -2, -1, -10, 2, 3};
+
+        int max = Integer.MIN_VALUE;
+
+        int leftProd = 1;
+        int rightProd = 1;
+
+        for (int i = 0; i < ar.length; i++) {
+
+            // Left to Right
+            leftProd = leftProd * ar[i];
+
+            if (leftProd > max) {
+                max = leftProd;
+            }
+
+            if (leftProd == 0) {
+                leftProd = 1;
+            }
+
+            // Right to Left
+            rightProd = rightProd * ar[ar.length - 1 - i];
+
+            if (rightProd > max) {
+                max = rightProd;
+            }
+
+            if (rightProd == 0) {
+                rightProd = 1;
+            }
+        }
+
+        System.out.println(max);
+    }
+}
+
+
+
+
