@@ -1,0 +1,46 @@
+package com.basics;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+class Main {
+    public static void main(String[] args) {
+    	
+    	String s = "aabbbc";
+    	
+    	TreeMap<Character, Integer> map = new TreeMap<Character, Integer>();
+    	for(int i=0; i<s.length(); i++) {
+    		char ch = s.charAt(i);
+    		map.put(ch, map.getOrDefault(ch, 0)+1);
+    	}
+    	
+    	int oddFreq = 0;
+    	char oddChar = ' ';
+    	for(Map.Entry<Character, Integer> entry : map.entrySet()) {
+    		if(entry.getValue()%2 != 0) {
+    			oddFreq++;
+    			oddChar = entry.getKey();
+    		}
+    	}
+    	if(oddFreq > 1) {
+    		System.out.println("Invalid String");
+    		return;
+    	}
+    	StringBuilder sb = new StringBuilder();
+    	for(Map.Entry<Character,Integer> entry : map.entrySet()) {
+    		char ch = entry.getKey();
+    		int freq = entry.getValue();
+    		for(int i=0; i<freq/2; i++) {
+    			sb.append(ch);
+    		}
+    	}
+    	if(oddFreq == 1) {
+    		sb.append(oddChar);
+    	}
+    	String left = sb.toString();
+    	String right = sb.reverse().toString();
+    	String res = left+right;
+    	System.out.println(res);
+    }
+    
+}
