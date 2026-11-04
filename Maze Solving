@@ -1,0 +1,47 @@
+
+class Main {
+	public static boolean fun(int[][] ar, int row, int col, int[][] path) {
+
+		if (row < 0 || row >= ar.length ||
+				col < 0 || col >= ar[0].length ||
+				ar[row][col] == 0 || path[row][col] == 1) {
+			return false;
+		}
+
+		path[row][col] = 1;
+
+		if (row == ar.length - 1 && col == ar[0].length - 1) {
+			return true;
+		}
+
+		if (fun(ar, row + 1, col, path) ||
+				fun(ar, row, col + 1, path) ||
+				fun(ar, row - 1, col, path) ||
+				fun(ar, row, col - 1, path)) {
+			return true;
+		}
+
+		path[row][col] = 0;
+		return false;
+	}
+
+	public static void main(String[] args) {
+		int[][] maze = {
+				{1, 0, 0, 0},
+				{1, 1, 0, 1},
+				{0, 1, 0, 0},
+				{1, 1, 1, 1}
+		};
+
+		int[][] path = new int[maze.length][maze[0].length];
+		fun(maze, 0, 0, path);
+
+		for (int[] row : path) {
+			for (int value : row) {
+				System.out.print(value + " ");
+			}
+			System.out.println();
+		}
+	}
+}
+
