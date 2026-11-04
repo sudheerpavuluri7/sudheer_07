@@ -1,0 +1,47 @@
+package com.basics;
+import java.util.*;
+class Main {
+
+    static int distinctSubString(String P, String Q, int K) {
+
+        HashSet<String> set = new HashSet<>();
+
+        int N = P.length();
+
+        for (int i = 0; i < N; i++) {
+
+            int sum = 0;
+            String s = "";
+
+            for (int j = i; j < N; j++) {
+
+                // Find the position of the character
+                int pos = P.charAt(j) - 'a';
+
+                // Add the weight of current character
+                sum += Q.charAt(pos) - '0';
+
+                // Add current character to substring
+                s += P.charAt(j);
+
+                // Check if weight is within K
+                if (sum <= K) {
+                    set.add(s);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return set.size();
+    }
+
+    public static void main(String[] args) {
+
+        String P = "abcde";
+        String Q = "12345678912345678912345678";
+        int K = 5;
+
+        System.out.println(distinctSubString(P, Q, K));
+    }
+}
