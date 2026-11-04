@@ -1,0 +1,88 @@
+package com.basics;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the board size (N): ");
+        int n = sc.nextInt();
+        char[][] board = new char[n][n];
+        // Initialize the board
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = '-';
+            }
+        }
+        if (solveNQueens(board, 0, n)) {
+            System.out.println("Solution found:");
+            printSolution(board, n);
+        } else {
+            System.out.println("No solution exists.");
+        }
+    }
+    // Print the board
+    public static void printSolution(char[][] board, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(" " + board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    // Check whether a queen can be placed safely
+    public static boolean isSafe(
+            char[][] board, int row, int col, int n) {
+        int i, j;
+        // Check the same column above
+        i = 0;
+        while (i < row) {
+            if (board[i][col] == 'Q') {
+                return false;
+            }
+            i++;
+        }
+        // Check upper-left diagonal
+        i = row - 1;
+        j = col - 1;
+        while (i >= 0 && j >= 0) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+            i--;
+            j--;
+        }
+        // Check upper-right diagonal
+        i = row - 1;
+        j = col + 1;
+        while (i >= 0 && j < n) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+            i--;
+            j++;
+        }
+        return true;
+    }
+    // Solve row by row using backtracking
+    public static boolean solveNQueens(
+            char[][] board, int row, int n) {
+        // Base case: all rows have queens
+        if (row >= n) {
+            return true;
+        }
+        // Try every column in the current row
+        for (int col = 0; col < n; col++) {
+            if (isSafe(board, row, col, n)) {
+                // Place queen
+                board[row][col] = 'Q';
+                // Move to the next row
+                if (solveNQueens(board, row + 1, n)) {
+                    return true;
+                }
+                // Backtrack: remove the queen
+                board[row][col] = '-';
+            }
+        }
+        return false;
+    }
+}
+
