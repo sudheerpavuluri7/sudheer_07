@@ -1,0 +1,137 @@
+
+package com.basics;
+import java.util.*;
+public class Main {
+    static boolean fun(
+        int[][] board,
+        int row,
+        int col,
+        int step) {
+        int n = board.length;
+        if (step == n * n)
+            return true;
+        // Move 1: Down 2, Right 1
+        if (row + 2 < n && col + 1 < n &&
+            board[row + 2][col + 1] == -1) {
+            board[row + 2][col + 1] = step;
+            if (fun(board, row + 2, col + 1, step + 1))
+                return true;
+            board[row + 2][col + 1] = -1;
+        }
+        // Move 2: Down 1, Right 2
+        if (row + 1 < n && col + 2 < n &&
+            board[row + 1][col + 2] == -1) {
+            board[row + 1][col + 2] = step;
+            if (fun(board, row + 1, col + 2, step + 1))
+                return true;
+            board[row + 1][col + 2] = -1;
+        }
+        // Move 3: Up 1, Right 2
+        if (row - 1 >= 0 && col + 2 < n &&
+            board[row - 1][col + 2] == -1) {
+            board[row - 1][col + 2] = step;
+            if (fun(board, row - 1, col + 2, step + 1))
+                return true;
+            board[row - 1][col + 2] = -1;
+        }
+        // Move 4: Up 2, Right 1
+        if (row - 2 >= 0 && col + 1 < n &&
+            board[row - 2][col + 1] == -1) {
+            board[row - 2][col + 1] = step;
+            if (fun(board, row - 2, col + 1, step + 1))
+                return true;
+            board[row - 2][col + 1] = -1;
+        }
+        // Move 5: Up 2, Left 1
+        if (row - 2 >= 0 && col - 1 >= 0 &&
+            board[row - 2][col - 1] == -1) {
+            board[row - 2][col - 1] = step;
+            if (fun(board, row - 2, col - 1, step + 1))
+                return true;
+            board[row - 2][col - 1] = -1;
+        }
+        // Move 6: Up 1, Left 2
+        if (row - 1 >= 0 && col - 2 >= 0 &&
+            board[row - 1][col - 2] == -1) {
+            board[row - 1][col - 2] = step;
+            if (fun(board, row - 1, col - 2, step + 1))
+                return true;
+            board[row - 1][col - 2] = -1;
+        }
+        // Move 7: Down 1, Left 2
+        if (row + 1 < n && col - 2 >= 0 &&
+            board[row + 1][col - 2] == -1) {
+            board[row + 1][col - 2] = step;
+            if (fun(board, row + 1, col - 2, step + 1))
+                return true;
+            board[row + 1][col - 2] = -1;
+        }
+        // Move 8: Down 2, Left 1
+        if (row + 2 < n && col - 1 >= 0 &&
+            board[row + 2][col - 1] == -1) {
+            board[row + 2][col - 1] = step;
+            if (fun(board, row + 2, col - 1, step + 1))
+                return true;
+            board[row + 2][col - 1] = -1;
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        int n = 8;
+        int[][] board = new int[n][n];
+        for (int i = 0; i < n; i++)
+            Arrays.fill(board[i], -1);
+        board[0][0] = 0;
+        if (fun(board, 0, 0, 1)) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++)
+                    System.out.print(board[i][j] + " ");
+                System.out.println();
+            }
+        } else {
+            System.out.println("No solution");
+        }
+    }
+}
+—-> Using for loop
+import java.util.*;
+public class Main {
+    static int[] ROW_MOVES = {2, 1, -1, -2, -2, -1, 1, 2};
+    static int[] COL_MOVES = {1, 2, 2, 1, -1, -2, -2, -1};
+    static boolean fun(int[][] board, int row, int col, int step) {
+        int n = board.length;
+        if (step == n * n)
+            return true;
+        for (int i = 0; i < 8; i++) {
+            int nextRow = row + ROW_MOVES[i];
+            int nextCol = col + COL_MOVES[i];
+            if (nextRow >= 0 && nextRow < n &&
+                nextCol >= 0 && nextCol < n &&
+                board[nextRow][nextCol] == -1) {
+                board[nextRow][nextCol] = step;
+                if (fun(board, nextRow, nextCol, step + 1))
+                    return true;
+                board[nextRow][nextCol] = -1;
+            }
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        int n = 8;
+        int[][] board = new int[n][n];
+        for (int i = 0; i < n; i++)
+            Arrays.fill(board[i], -1);
+        board[0][0] = 0;
+        if (fun(board, 0, 0, 1)) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++)
+                    System.out.print(board[i][j] + "\t");
+                System.out.println();
+            }
+        } else {
+            System.out.println("No solution");
+        }
+    }
+}
+
+
