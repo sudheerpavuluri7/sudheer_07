@@ -1,0 +1,23 @@
+package com.basics;
+public class Main {
+    public static void main(String[] args) {
+
+        String s = "Sudheer-----";
+        char[] ar = s.toCharArray();
+
+        int j = ar.length - 1;
+
+        for (int i = ar.length - 1; i >= 0; i--) {
+
+            if (ar[i] != '-') {
+                char temp = ar[i];
+                ar[i] = ar[j];
+                ar[j] = temp;
+
+                j--;
+            }
+        }
+        String res = new String(ar);
+        System.out.println(res);
+    }
+}
