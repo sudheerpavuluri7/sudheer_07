@@ -1,0 +1,147 @@
+
+--> Unique paths count
+import java.util.Scanner;
+
+class Main {
+
+    public static int fun(int row, int col, int n) {
+
+        if (row == n - 1 && col == n - 1) {
+            return 1;
+        }
+
+        if (row >= n || col >= n) {
+            return 0;
+        }
+
+        int down = fun(row + 1, col, n);
+        int right = fun(row, col + 1, n);
+
+        return down + right;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        System.out.println(fun(0, 0, n));
+    }
+}
+
+--> Memoization
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Main {
+
+    public static int fun(int row, int col, int n, int[][] dp) {
+
+        if (row == n - 1 && col == n - 1) {
+            return 1;
+        }
+
+        if (row >= n || col >= n) {
+            return 0;
+        }
+
+        if (dp[row][col] != -1) {
+            return dp[row][col];
+        }
+
+        int down = fun(row + 1, col, n, dp);
+        int right = fun(row, col + 1, n, dp);
+
+        return dp[row][col] = down + right;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        int[][] dp = new int[n][n];
+
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        System.out.println(fun(0, 0, n, dp));
+    }
+}
+
+-->Tabulation
+
+import java.util.Scanner;
+
+class Main {
+
+    public static int fun(int n) {
+
+        int[][] dp = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+
+                if (i == 0 && j == 0) {
+                    dp[i][j] = 1;
+                }
+                else {
+                    int up = 0;
+                    int left = 0;
+
+                    if (i > 0) {
+                        up = dp[i - 1][j];
+                    }
+
+                    if (j > 0) {
+                        left = dp[i][j - 1];
+                    }
+
+                    dp[i][j] = up + left;
+                }
+            }
+        }
+
+        return dp[n - 1][n - 1];
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        System.out.println(fun(n));
+    }
+}
+
+--> Printing all directions
+import java.util.Scanner;
+
+class Main {
+
+    public static void fun(int row, int col, int n, String path) {
+
+        if (row == n - 1 && col == n - 1) {
+            System.out.println(path);
+            return;
+        }
+
+        if (row < n - 1)
+            fun(row + 1, col, n, path + "D");
+
+        if (col < n - 1)
+            fun(row, col + 1, n, path + "R");
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        fun(0, 0, n, "");
+    }
+}
