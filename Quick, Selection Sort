@@ -1,0 +1,61 @@
+Quick Sort:
+{5,3,8,7,0,2,4,1,6,9}
+package com.basics;
+import java.util.Arrays;
+class Main {
+    public static int partition(int[] ar, int low, int high) {
+        int pivot = ar[low];
+        int i = low + 1;
+        int j = high;
+        while (i <= j) {
+            while (i <= high && ar[i] <= pivot) {
+                i++;
+            }
+            while (j > low && ar[j] > pivot) {
+                j--;
+            }
+            if (i < j) {
+                int temp = ar[i];
+                ar[i] = ar[j];
+                ar[j] = temp;
+            }
+        }
+        int temp = ar[low];
+        ar[low] = ar[j];
+        ar[j] = temp;
+        return j;
+    }
+    public static void quickSort(int[] ar, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(ar, low, high);
+            quickSort(ar, low, pivotIndex - 1);
+            quickSort(ar, pivotIndex + 1, high);
+        }
+    }
+    public static void main(String[] args) {
+        int[] ar = {8, 3, 1, 7, 0, 10, 2};
+        quickSort(ar, 0, ar.length - 1);
+        System.out.println(Arrays.toString(ar));
+    }
+}
+Selection sort:
+package com.basics;
+import java.util.Arrays;
+class Main {
+    public static void main(String[] args) {
+        int[] ar = {5, 3, 8, 4, 2};
+        for (int i = 0; i < ar.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < ar.length; j++) {
+                if (ar[j] < ar[min]) {
+                    min = j;
+                }
+            }
+            int temp = ar[i];
+            ar[i] = ar[min];
+            ar[min] = temp;
+        }
+        System.out.println(Arrays.toString(ar));
+    }
+}
+
