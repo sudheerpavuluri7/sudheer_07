@@ -1,0 +1,66 @@
+package com.basics;
+public class Main {
+    public static int expandAroundCenter(String s, int left, int right) {
+        while (left >= 0 && right < s.length()
+                && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+    public static void main(String[] args) {
+        String s = "NYNABBAN";
+        int start = 0;
+        int end = 0;
+        int maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int odd = expandAroundCenter(s, i, i);
+            int even = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(odd, even);
+            if (len > maxLen) {
+                maxLen = len;
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        String res = s.substring(start, end + 1);
+        System.out.println(res);
+    }
+}
+
+
+-->Optimal
+package com.basics;
+public class Main {
+    public static void main(String[] args) {
+        String s = "aaaaabaaaaa";
+        StringBuilder sb = new StringBuilder("#");
+        for (int i = 0; i < s.length(); i++) {
+            sb.append(s.charAt(i));
+            sb.append("#");
+        }
+        String str = sb.toString();
+        int n = str.length();
+        int[] P = new int[n];
+        int C = 0, R = 0;
+        int maxLen = 0;
+        for (int i = 0; i < n; i++) {
+            int mirror = 2 * C - i;
+            if (i < R) {
+                P[i] = Math.min(R - i, P[mirror]);
+            }
+            while (i + P[i] + 1 < n &&
+                   i - P[i] - 1 >= 0 &&
+                   str.charAt(i + P[i] + 1) ==
+                   str.charAt(i - P[i] - 1)) {
+                P[i]++;
+            }
+            if (i + P[i] > R) {
+                C = i;
+                R = i + P[i];
+            }
+            maxLen = Math.max(maxLen, P[i]);
+        }
+        System.out.println("Longest palindrome length: " + maxLen);
+    }
+}
