@@ -1,0 +1,81 @@
+package com.basics;
+import java.util.*;
+
+public class Main {
+
+    static boolean isSafe(int v, int graph[][], int path[], int pos) {
+
+        // Check whether an edge exists
+        if (graph[path[pos - 1]][v] == 0)
+            return false;
+
+        // Check whether vertex is already visited
+        for (int i = 0; i < pos; i++) {
+            if (path[i] == v)
+                return false;
+        }
+
+        return true;
+    }
+
+    static boolean fun(int graph[][], int path[], int pos) {
+
+        int n = graph.length;
+
+        // All vertices are included
+        if (pos == n) {
+
+            // Check whether last vertex connects to first
+            return graph[path[pos - 1]][path[0]] == 1;
+        }
+
+        for (int v = 1; v < n; v++) {
+
+            if (isSafe(v, graph, path, pos)) {
+
+                path[pos] = v;
+
+                if (fun(graph, path, pos + 1))
+                    return true;
+
+                // Backtracking
+                path[pos] = -1;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        int graph[][] = {
+            {0, 1, 0, 0, 1},
+            {1, 0, 1, 0, 0},
+            {0, 1, 0, 1, 0},
+            {0, 0, 1, 0, 1},
+            {1, 0, 0, 1, 0}
+        };
+
+        int n = graph.length;
+
+        int path[] = new int[n];
+
+        Arrays.fill(path, -1);
+
+        path[0] = 0;
+
+        if (fun(graph, path, 1)) {
+
+            System.out.println("Hamiltonian Cycle:");
+
+            for (int i = 0; i < n; i++) {
+                System.out.print(path[i] + " ");
+            }
+
+            System.out.println(path[0]);
+
+        } else {
+            System.out.println("No Hamiltonian Cycle");
+        }
+    }
+}
