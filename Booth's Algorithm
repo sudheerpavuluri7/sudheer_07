@@ -1,0 +1,53 @@
+
+package com.basics;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static long boothMultiply(int m, int q) {
+
+        int A = 0;
+        int M = m;
+        int Q = q;
+        int Q_1 = 0;
+
+        for (int i = 0; i < 32; i++) {
+
+            int Q0 = Q & 1;
+
+            // Check Q0 and Q-1
+            if (Q0 == 0 && Q_1 == 1) {
+                A = A + M;
+            }
+            else if (Q0 == 1 && Q_1 == 0) {
+                A = A - M;
+            }
+
+            // Arithmetic right shift of A, Q, Q-1
+            Q_1 = Q & 1;
+
+            Q = (Q >>> 1) | (A << 31);
+
+            A = A >> 1;
+        }
+
+        return ((long) A << 32) | (Q & 0xFFFFFFFFL);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter multiplicand: ");
+        int m = sc.nextInt();
+
+        System.out.print("Enter multiplier: ");
+        int q = sc.nextInt();
+
+        long result = boothMultiply(m, q);
+
+        System.out.println("Product = " + result);
+
+    }
+}
